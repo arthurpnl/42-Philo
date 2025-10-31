@@ -1,17 +1,17 @@
 #include "philosopher.h"
 
-int main(int argc, char **argv) 
+int	main(int argc, char **argv)
 {
-    t_rules rules;
+	t_philo			philos[200];
+	pthread_mutex_t	forks[200];
+	t_program		program;
 
-    if (parse_args(argc, argv, &rules) != 0)
-        return (printf("Error: wrong arguments\nExample: ./philo 5 800 200 200 7"),  1);
-    printf("num_philo: %d\n", rules.num_philo);
-    printf("time_die: %d\n", rules.time_die);
-    printf("time_eat: %d\n", rules.time_eat);
-    printf("time_sleep: %d\n", rules.time_sleep);
-    printf("nb_meal_required: %d\n", rules.nb_meal_required);
-    printf("Valid arguments\n");
-    
-    return 0;
+    if (parse_args(argc, argv, &program.rules) != 0)
+        return (ft_putstr_fd("Error: wrong arguments\nExample: ./philo 5 800 200 200 7", 2), 1);
+    init_struct(&program);
+    program.philos = philos;
+    init_forks(forks, program.rules.num_philo);
+    init_philos(&program, philos, forks, program.rules.num_philo);
+	return (0);
 }
+
