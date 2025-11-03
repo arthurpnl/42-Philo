@@ -1,0 +1,5 @@
+Makefile
+philo
+*.o
+*.out
+*.dSYM

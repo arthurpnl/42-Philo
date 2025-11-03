@@ -2,10 +2,10 @@
 
 size_t	now_ms(void)
 {
-    struct timeval	v;
+    struct timeval	time;
 
-    gettimeofday(&v, NULL);
-    return (v.tv_sec * 1000ULL + v.tv_usec / 1000ULL);
+    gettimeofday(&time, NULL);
+    return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 

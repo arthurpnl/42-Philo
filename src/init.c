@@ -1,51 +1,37 @@
-#include "../includes/philosopher.h"
+#include "philosopher.h"
 
-void	init_struct(t_program *program)
+int	init_data(t_data *data, t_philo *philos, pthread_mutex_t *forks)
 {
-    program->dead_flag = 0;
-    pthread_mutex_init(&program->print_lock, NULL);
-    pthread_mutex_init(&program->dead_lock, NULL);
-    pthread_mutex_init(&program->meal_lock, NULL);
+	int	i;
+
+	data->dead_flag = 0;
+	data->start_time = now_ms();
+	data->philos = philos;
+	data->forks = forks;
+	if (pthread_mutex_init(&data->print_lock, NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&data->dead_lock, NULL) != 0)
+		return (1);
+	if (pthread_mutex_init(&data->meal_lock, NULL) != 0)
+		return (1);
+	i = 0;
+	while (i < data->num_philo)
+	{
+		if (pthread_mutex_init(&forks[i], NULL) != 0)
+			return (1);
+		i++;
+	}
+	i = 0;
+	while (i < data->num_philo)
+	{
+		philos[i].id = i + 1;
+		philos[i].meals_eaten = 0;
+		philos[i].last_meal = data->start_time;
+		philos[i].data = data;
+		philos[i].l_fork = &forks[i];
+		philos[i].r_fork = &forks[(i + 1) % data->num_philo];
+		i++;
+	}
+	return (0);
 }
 
-
-
-void	init_forks(pthread_mutex_t *forks, int n)
-{
-    int	i;
-
-    i = 0;
-    while (i < n)
-    {
-        pthread_mutex_init(&forks[i], NULL);
-        i++;
-    }
-}
-
-void	init_philos(t_program *program, t_philo *philos, pthread_mutex_t *forks, int n)
-{
-    int		i;
-    size_t	start;
-
-    start = now_ms();
-    i = 0;
-    while (i < n)
-    {
-        philos[i].id = i + 1;
-        philos[i].eating = 0;
-        philos[i].meals_eaten = 0;
-        philos[i].start_time = start;
-        philos[i].last_meal = start;
-
-        philos[i].rules = &program->rules;
-        philos[i].dead = &program->dead_flag;
-
-        philos[i].print_lock = &program->print_lock;
-        philos[i].dead_lock = &program->dead_lock;
-        philos[i].meal_lock = &program->meal_lock;
-
-        philos[i].l_fork = &forks[i];
-        philos[i].r_fork = &forks[(i + 1) % n];
-        i++;
-    }
-}

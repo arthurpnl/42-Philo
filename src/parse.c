@@ -38,33 +38,38 @@ int	convert_to_int(char *argv, int *tmp)
 	return (0);
 }
 
-int	parse_args(int argc, char **argv, t_rules *rules)
+int	check_argc(int argc)
+{
+	if (argc != 5 && argc != 6)
+		return (1);
+	return (0);
+}
+
+int	validate_args(char **argv, t_data *data)
 {
 	int	tmp;
 
 	tmp = 0;
-	if (argc != 5 && argc != 6)
-		return (1);
 	if (is_all_digits(argv) != 0)
 		return (1);
 	if (convert_to_int(argv[1], &tmp) != 0 || tmp < 1 || tmp > 200)
 		return (1);
-	rules->num_philo = tmp;
+	data->num_philo = tmp;
 	if (convert_to_int(argv[2], &tmp) != 0 || tmp < 1)
 		return (1);
-	rules->time_die = tmp;
+	data->time_die = tmp;
 	if (convert_to_int(argv[3], &tmp) != 0 || tmp < 1)
 		return (1);
-	rules->time_eat = tmp;
+	data->time_eat = tmp;
 	if (convert_to_int(argv[4], &tmp) != 0 || tmp < 1)
 		return (1);
-	rules->time_sleep = tmp;
-	rules->nb_meal_required = -1;
-	if (argc == 6)
+	data->time_sleep = tmp;
+	data->nb_meal_required = -1;
+	if (argv[5])
 	{
 		if (convert_to_int(argv[5], &tmp) != 0 || tmp < 0)
 			return (1);
-		rules->nb_meal_required = tmp;
+		data->nb_meal_required = tmp;
 	}
 	return (0);
 }
