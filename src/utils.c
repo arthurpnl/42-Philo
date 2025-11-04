@@ -28,7 +28,7 @@ int	smart_sleep(size_t ms, t_philo *philo)
 	elapsed_time = 0;
 	while (elapsed_time < ms)
 	{
-		usleep(1000);
+		usleep(200);
 		pthread_mutex_lock(&philo->data->dead_lock);
 		if (philo->data->dead_flag == 1)
 		{

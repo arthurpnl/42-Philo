@@ -35,10 +35,10 @@ typedef struct s_data
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
+	size_t			time_die;
+	size_t			time_eat;
+	size_t			time_sleep;
 	int				num_philo;
-	int				time_die;
-	int				time_eat;
-	int				time_sleep;
 	int				nb_meal_required;
 	int				dead_flag;
 	t_philo			*philos;
@@ -51,7 +51,6 @@ int					validate_args(char **argv, t_data *data);
 // utils.c
 void				ft_putstr_fd(char *s, int fd);
 int					smart_sleep(size_t ms, t_philo *philo);
-int					check_death(t_philo *philo);
 int					ft_strcmp(const char *s1, const char *s2);
 
 // init.c
@@ -63,17 +62,23 @@ int					create_threads(t_data *data);
 int					join_threads(t_data *data);
 void				simulation(t_data *data);
 
+// monitor.c
+int					monitoring(t_data *data);
+
 // routine.c
 void				*routine(void *arg);
+
+// actions.c
 int					print_state(t_philo *philo, char *state);
-void				handle_one_philo(t_philo *philo);
-int					get_fork(t_philo *philo);
 int					eat(t_philo *philo);
 int					philo_sleep(t_philo *philo);
 int					think(t_philo *philo);
 
 // routine_utils.c 
+void				handle_one_philo(t_philo *philo);
+int					check_death(t_philo *philo);
 int					fork_pair_philo(t_philo *philo);
 int					fork_odd_philo(t_philo *philo);
+int					get_fork(t_philo *philo);
 
 #endif

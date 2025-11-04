@@ -29,6 +29,9 @@ int	join_threads(t_data *data)
 
 void	simulation(t_data *data)
 {
-	create_threads(data);
+	if (create_threads(data) != 0)
+		return ;
+	if (data->num_philo > 1)
+		monitoring(data);
 	join_threads(data);
 }
