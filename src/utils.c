@@ -6,7 +6,7 @@
 /*   By: arpenel <arpenel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 15:35:14 by arpenel           #+#    #+#             */
-/*   Updated: 2025/11/10 15:36:02 by arpenel          ###   ########.fr       */
+/*   Updated: 2025/11/10 15:46:13 by arpenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 // 	return (0);
 // }
 
-static int	data_is_dead(t_data *data)
+int	data_is_dead(t_data *data)
 {
 	int	val;
 
