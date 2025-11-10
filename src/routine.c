@@ -25,16 +25,16 @@ void	*routine(void *arg)
 	{
 		pthread_mutex_lock(&philo->data->meal_lock);
 		if (philo->data->nb_meal_required > 0
-				&& philo->meals_eaten >= philo->data->nb_meal_required)
+			&& philo->meals_eaten >= philo->data->nb_meal_required)
 		{
 			pthread_mutex_unlock(&philo->data->meal_lock);
 			return (NULL);
 		}
 		pthread_mutex_unlock(&philo->data->meal_lock);
-         if (check_death(philo) == 1)
-             return (NULL);
-         if (get_fork(philo) == 1)
-             return (NULL);
+		if (check_death(philo) == 1)
+			return (NULL);
+		if (get_fork(philo) == 1)
+			return (NULL);
 		if (eat(philo) == 1)
 			return (NULL);
 		if (philo_sleep(philo) == 1)
