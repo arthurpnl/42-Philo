@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitor.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arpenel <arpenel@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/10 15:30:54 by arpenel           #+#    #+#             */
+/*   Updated: 2025/11/10 15:38:13 by arpenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosopher.h"
 
 static int	all_philos_full(t_data *data)
 {
-	int		full;
-	int		i;
+	int	full;
+	int	i;
 
 	if (data->nb_meal_required <= 0)
 		return (0);
@@ -30,8 +42,8 @@ static int	all_philos_full(t_data *data)
 
 int	monitoring(t_data *data)
 {
-	int			 i;
-	size_t		elapsed;
+	int		i;
+	size_t	elapsed;
 
 	while (1)
 	{
@@ -43,8 +55,6 @@ int	monitoring(t_data *data)
 		}
 		pthread_mutex_unlock(&data->dead_lock);
 		i = 0;
-		fprintf(stderr, "DEBUG: start_time=%zu time_die=%d num_philo=%d\n",
-    		data->start_time, data->time_die, data->num_philo);
 		while (i < data->num_philo)
 		{
 			pthread_mutex_lock(&data->meal_lock);

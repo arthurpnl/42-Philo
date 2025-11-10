@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   thread.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arpenel <arpenel@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/10 15:34:55 by arpenel           #+#    #+#             */
+/*   Updated: 2025/11/10 15:35:05 by arpenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosopher.h"
 
 int	create_threads(t_data *data)
@@ -7,7 +19,8 @@ int	create_threads(t_data *data)
 	i = 0;
 	while (i < data->num_philo)
 	{
-		if (pthread_create(&data->philos[i].thread, NULL, routine, &data->philos[i]) != 0)
+		if (pthread_create(&data->philos[i].thread, NULL, routine,
+				&data->philos[i]) != 0)
 			return (1);
 		i++;
 	}

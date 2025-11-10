@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arpenel <arpenel@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/10 15:31:10 by arpenel           #+#    #+#             */
+/*   Updated: 2025/11/10 15:31:12 by arpenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosopher.h"
 
 static int	init_mutexes(t_data *data)
@@ -25,7 +37,8 @@ static int	init_forks_mutexes(pthread_mutex_t *forks, int num_philo)
 	return (0);
 }
 
-static void	init_philosophers(t_data *data, t_philo *philos, pthread_mutex_t *forks)
+static void	init_philosophers(t_data *data, t_philo *philos,
+		pthread_mutex_t *forks)
 {
 	int	i;
 
@@ -55,4 +68,3 @@ int	init_data(t_data *data, t_philo *philos, pthread_mutex_t *forks)
 	init_philosophers(data, philos, forks);
 	return (0);
 }
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   actions.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arpenel <arpenel@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/10 15:31:04 by arpenel           #+#    #+#             */
+/*   Updated: 2025/11/10 15:31:05 by arpenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosopher.h"
 
 // int	print_state(t_philo *philo, char *state)
@@ -32,18 +44,17 @@
 
 int	print_state(t_philo *philo, char *state)
 {
-    pthread_mutex_lock(&philo->data->dead_lock);
-    if (philo->data->dead_flag == 1 && ft_strcmp(state, "died") != 0)
-    {
-        pthread_mutex_unlock(&philo->data->dead_lock);
-        return (1);
-    }
-    pthread_mutex_unlock(&philo->data->dead_lock);
-    pthread_mutex_lock(&philo->data->print_lock);
-    printf("%zu %d %s\n", now_ms() - philo->data->start_time,
-        philo->id, state);
-    pthread_mutex_unlock(&philo->data->print_lock);
-    return (0);
+	pthread_mutex_lock(&philo->data->dead_lock);
+	if (philo->data->dead_flag == 1 && ft_strcmp(state, "died") != 0)
+	{
+		pthread_mutex_unlock(&philo->data->dead_lock);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->data->dead_lock);
+	pthread_mutex_lock(&philo->data->print_lock);
+	printf("%zu %d %s\n", now_ms() - philo->data->start_time, philo->id, state);
+	pthread_mutex_unlock(&philo->data->print_lock);
+	return (0);
 }
 
 // int	eat(t_philo *philo)
@@ -70,28 +81,27 @@ int	print_state(t_philo *philo, char *state)
 
 int	eat(t_philo *philo)
 {
-    pthread_mutex_lock(&philo->data->meal_lock);
-    philo->last_meal = now_ms();
-    pthread_mutex_unlock(&philo->data->meal_lock);
-
-    if (print_state(philo, "is eating") == 1)
-    {
-        pthread_mutex_unlock(philo->l_fork);
-        pthread_mutex_unlock(philo->r_fork);
-        return (1);
-    }
-    if (smart_sleep(philo->data->time_eat, philo) == 1)
-    {
-        pthread_mutex_unlock(philo->l_fork);
-        pthread_mutex_unlock(philo->r_fork);
-        return (1);
-    }
-    pthread_mutex_lock(&philo->data->meal_lock);
-    philo->meals_eaten++;
-    pthread_mutex_unlock(&philo->data->meal_lock);
-    pthread_mutex_unlock(philo->l_fork);
-    pthread_mutex_unlock(philo->r_fork);
-    return (0);
+	pthread_mutex_lock(&philo->data->meal_lock);
+	philo->last_meal = now_ms();
+	pthread_mutex_unlock(&philo->data->meal_lock);
+	if (print_state(philo, "is eating") == 1)
+	{
+		pthread_mutex_unlock(philo->l_fork);
+		pthread_mutex_unlock(philo->r_fork);
+		return (1);
+	}
+	if (smart_sleep(philo->data->time_eat, philo) == 1)
+	{
+		pthread_mutex_unlock(philo->l_fork);
+		pthread_mutex_unlock(philo->r_fork);
+		return (1);
+	}
+	pthread_mutex_lock(&philo->data->meal_lock);
+	philo->meals_eaten++;
+	pthread_mutex_unlock(&philo->data->meal_lock);
+	pthread_mutex_unlock(philo->l_fork);
+	pthread_mutex_unlock(philo->r_fork);
+	return (0);
 }
 
 int	philo_sleep(t_philo *philo)
@@ -111,5 +121,3 @@ int	think(t_philo *philo)
 		smart_sleep(1, philo);
 	return (0);
 }
-
-

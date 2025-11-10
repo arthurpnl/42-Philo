@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arpenel <arpenel@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/10 15:35:14 by arpenel           #+#    #+#             */
+/*   Updated: 2025/11/10 15:36:02 by arpenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosopher.h"
 
 void	ft_putstr_fd(char *s, int fd)
@@ -41,26 +53,26 @@ int	ft_strcmp(const char *s1, const char *s2)
 // 	return (0);
 // }
 
-static int data_is_dead(t_data *data)
+static int	data_is_dead(t_data *data)
 {
-    int	val;
+	int	val;
 
-    pthread_mutex_lock(&data->dead_lock);
-    val = data->dead_flag;
-    pthread_mutex_unlock(&data->dead_lock);
-    return (val);
+	pthread_mutex_lock(&data->dead_lock);
+	val = data->dead_flag;
+	pthread_mutex_unlock(&data->dead_lock);
+	return (val);
 }
 
-int smart_sleep(size_t duration_ms, t_philo *philo)
+int	smart_sleep(size_t duration_ms, t_philo *philo)
 {
-    size_t start;
+	size_t	start;
 
-    start = now_ms();
-    while (now_ms() - start < duration_ms)
-    {
-        if (data_is_dead(philo->data))
-            return (1);
-        usleep(1000);
-    }
-    return (0);
+	start = now_ms();
+	while (now_ms() - start < duration_ms)
+	{
+		if (data_is_dead(philo->data))
+			return (1);
+		usleep(1000);
+	}
+	return (0);
 }
