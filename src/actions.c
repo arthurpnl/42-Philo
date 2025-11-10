@@ -6,7 +6,7 @@
 /*   By: arpenel <arpenel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 15:31:04 by arpenel           #+#    #+#             */
-/*   Updated: 2025/11/10 15:31:05 by arpenel          ###   ########.fr       */
+/*   Updated: 2025/11/10 16:28:50 by arpenel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,6 @@ int	print_state(t_philo *philo, char *state)
 	pthread_mutex_unlock(&philo->data->print_lock);
 	return (0);
 }
-
-// int	eat(t_philo *philo)
-// {
-// 	pthread_mutex_lock(&philo->data->meal_lock);
-// 	philo->meals_eaten++;
-// 	pthread_mutex_unlock(&philo->data->meal_lock);
-// 	if (print_state(philo, "is eating") == 1)
-// 	{
-// 		pthread_mutex_unlock(philo->l_fork);
-// 		pthread_mutex_unlock(philo->r_fork);
-// 		return (1);
-// 	}
-// 	if (smart_sleep(philo->data->time_eat, philo) == 1)
-// 	{
-// 		pthread_mutex_unlock(philo->l_fork);
-// 		pthread_mutex_unlock(philo->r_fork);
-// 		return (1);
-// 	}
-// 	pthread_mutex_unlock(philo->l_fork);
-// 	pthread_mutex_unlock(philo->r_fork);
-// 	return (0);
-// }
 
 int	eat(t_philo *philo)
 {
