@@ -8,7 +8,7 @@ void	*routine(void *arg)
 	if (philo->data->num_philo == 1)
 		return (handle_one_philo(philo), NULL);
 	if (philo->id % 2 == 0)
-		smart_sleep(1, philo);
+		usleep((philo->data->time_eat / 2) * 1000);
 	while (1)
 	{
 		if (check_death(philo) == 1)

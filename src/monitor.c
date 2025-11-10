@@ -43,6 +43,8 @@ int	monitoring(t_data *data)
 		}
 		pthread_mutex_unlock(&data->dead_lock);
 		i = 0;
+		fprintf(stderr, "DEBUG: start_time=%zu time_die=%d num_philo=%d\n",
+    		data->start_time, data->time_die, data->num_philo);
 		while (i < data->num_philo)
 		{
 			pthread_mutex_lock(&data->meal_lock);

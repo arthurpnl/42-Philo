@@ -74,7 +74,7 @@ int	get_fork(t_philo *philo)
 		pthread_mutex_unlock(philo->l_fork);
 		return (0);
 	}
-	if (philo->id % 2 == 0 || philo->id == philo->data->num_philo)
+	if (philo->id % 2 == 0)
 		return (fork_pair_philo(philo));
 	return (fork_odd_philo(philo));
 }
